@@ -2,7 +2,6 @@
 
 namespace app\model;
 
-
 class Produto
 {
     private $id, $nome, $descricao;
@@ -13,7 +12,7 @@ class Produto
     }
     public function setId($id)
     {
-        $this->nome = $id;
+        $this->id = $id;
     }
     public function getNome()
     {

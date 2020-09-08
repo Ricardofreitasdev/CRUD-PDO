@@ -2,7 +2,6 @@
 
 namespace app\model;
 
-
 class ProdutoDao
 {
     public function create(Produto $p)
@@ -12,7 +11,6 @@ class ProdutoDao
         $stmt->bindValue(':n', $p->getNome());
         $stmt->bindValue(':d', $p->getDescricao());
         $stmt->execute();
-
     }
     public function read()
     {
@@ -20,7 +18,7 @@ class ProdutoDao
         $stmt = Conexao::getConn()->prepare($sql);
         $stmt->execute();
 
-        if($stmt->rowCount() > 0){
+        if ($stmt->rowCount() > 0) {
             $resultado = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             return $resultado;
         } else {
@@ -29,8 +27,19 @@ class ProdutoDao
     }
     public function update(Produto $p)
     {
+        $sql = 'UPDATE produtos SET nome = ?, descricao = ? WHERE id = ?';
+        $stmt = Conexao::getConn()->prepare($sql);
+        $stmt->bindValue(1, $p->getNome());
+        $stmt->bindValue(2, $p->getDescricao());
+        $stmt->bindValue(3, $p->getId());
+
+        $stmt->execute();
     }
     public function delete($id)
     {
+        $sql = 'DELETE FROM produtos WHERE id = ?';
+        $stmt = Conexao::getConn()->prepare($sql);
+        $stmt->bindValue(1, $id);
+        $stmt->execute();
     }
 }
